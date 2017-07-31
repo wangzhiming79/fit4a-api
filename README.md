@@ -154,7 +154,7 @@ success|bool|是否成功
 ## 获取每日步数目标
 > 
 #### HttpMethod: `GET`
-#### Url: `/warkGoal/getData`
+#### Url: `/walkGoal/getData`
 #### Header: 
 Headers       |type       |nullable   |description
 ------------|-----------|-----------|-----------
@@ -169,7 +169,7 @@ data.goal|number| 目标步数
 ## 更新每日步数目标
 > 
 #### HttpMethod: `POST`
-#### Url: `/warkGoal/updateData`
+#### Url: `/walkGoal/updateData`
 #### Header:
 Headers       |type       |nullable   |description
 ------------|-----------|-----------|-----------
@@ -194,7 +194,7 @@ success|bool|是否成功
 ## 上传步数
 > 
 #### HttpMethod: `POST`
-#### Url: `/wark/uploadData`
+#### Url: `/walk/uploadData`
 #### Header: 
 Headers       |type       |nullable   |description
 ------------|-----------|-----------|-----------
@@ -238,7 +238,7 @@ response:
 ##  获取每日步数
 > 
 #### HttpMethod: `POST`
-#### Url: `/wark/getDataByDay`
+#### Url: `/walk/getDataByDay`
 #### Header: 
 Headers       |type       |nullable   |description
 ------------|-----------|-----------|-----------
@@ -296,7 +296,7 @@ response:
 ##  获取每周步数（指定日 - 7）
 >
 #### HttpMethod: `POST`
-#### Url: `/wark/getDataByWeek`
+#### Url: `/walk/getDataByWeek`
 #### Header:
 Headers       |type       |nullable   |description
 ------------|-----------|-----------|-----------
@@ -348,7 +348,7 @@ response:
 ##  获取每月步数（从指定日-30）
 >
 #### HttpMethod: `POST`
-#### Url: `/wark/getDataByWeek`
+#### Url: `/walk/getDataByMonth`
 #### Header:
 Headers       |type       |nullable   |description
 ------------|-----------|-----------|-----------
