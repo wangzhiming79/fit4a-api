@@ -253,10 +253,8 @@ param|type|description
 -|-|-
 success|bool|是否成功
 data        |array   | 目标步数数组
-startTime   |string  | 开始时间UTC 
-endTime     |string  | 结束时间UTC 
-steps       |number  | 步数 
-dataSource  |number  | 来源
+_id         |class   | 按小时分组的hour字段
+steps       |number  | 每小时步数总计
 #### Sample
 ```
 request:
@@ -265,18 +263,35 @@ request:
     	"date":"2017-07-19T00:00:00Z"
     }
 response:
-   {
-       "success": true,
-       "data": [
-           {
-               "_id": "597074a729f888d60f6af01d",
-               "steps": 1300,
-               "startTime": "2017-07-19T08:10:10.000Z",
-               "endTime": "2017-07-19T08:30:10.000Z",
-               "dataSource": 1
-           }
-       ]
-   }
+  {
+      "success": true,
+      "data": [
+          {
+              "_id": {
+                  "hour": 0
+              },
+              "steps": 2500
+          },
+          {
+              "_id": {
+                  "hour": 5
+              },
+              "steps": 1200
+          },
+          {
+              "_id": {
+                  "hour": 8
+              },
+              "steps": 1500
+          },
+          {
+              "_id": {
+                  "hour": 15
+              },
+              "steps": 2400
+          }
+      ]
+  }
 ```
 ##  获取每周步数（指定日 - 7）
 >
@@ -296,7 +311,7 @@ param|type|description
 -|-|-
 success|bool|是否成功
 data        |array   | 目标步数数组
-_id         |class   | 按天分组的year， month，day 字段
+_id         |class   | 按周分组的dayOfWeek字段, 按周
 steps       |number  | 每日步数总计
 #### Sample
 ```
@@ -311,27 +326,21 @@ response:
       "data": [
           {
               "_id": {
-                  "year": 2017,
-                  "month": 7,
-                  "day": 12
+                  "dayOfWeek": 3
               },
               "steps": 1200
           },
           {
               "_id": {
-                  "year": 2017,
-                  "month": 7,
-                  "day": 13
+                  "dayOfWeek": 4
+              },
+              "steps": 1200
+          },
+          {
+              "_id": {
+                  "dayOfWeek": 5
               },
               "steps": 1300
-          },
-          {
-              "_id": {
-                  "year": 2017,
-                  "month": 7,
-                  "day": 18
-              },
-              "steps": 1200
           }
       ]
   }
