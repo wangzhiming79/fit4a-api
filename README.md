@@ -311,7 +311,8 @@ param|type|description
 -|-|-
 success|bool|是否成功
 data        |array   | 目标步数数组
-_id         |class   | 按周分组的dayOfWeek字段, 按周
+_id         |class   | 按天分组的year， month，day，附带dayOfWeek字段 
+dayOfWeek   |number  | 周日（1） ---- 周六（7）
 steps       |number  | 每日步数总计
 #### Sample
 ```
