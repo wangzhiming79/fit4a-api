@@ -1,4 +1,4 @@
-# 新北动健康OAuth2.0 API接口文档 v1.0.0  
+# 新北动健康OAuth2.0接口文档 v1.0.0  
     测试服务器地址:http://101.201.234.233:4001
 ## 
     
@@ -37,13 +37,13 @@ client_id        |string        |false      | 申请应用时分配的client_id
 client_secret    |string        |false      | 申请应用时分配的client_secret
 redirect_uri     |string  |false       |授权回调地址
 grant_type       |string  |false       |请求的类型，填写authorization_code  
-code             |string  |false       |调用authorize获得的code值 
+code             |string  |false       |调用/oauth/authorise获得的code值 
 
 #### Response:
 param|type|description
 -|-|-
 code|string|用于第二步调用oauthtoken接口，获取授权后的access token
-state|string|如果传递参数，会回传该参数
+expires_in|number|如果传递参数，会回传该参数
 
 #### Example
 ```
@@ -98,7 +98,7 @@ refresh_token    |string  |false       |请求到的refresh_token
 #### Response:
 param|type|description
 -|-|-
-code|string|用于第二步调用oauthtoken接口，获取授权后的access token
+code|string|用于第二步调用oauth/token接口，获取授权后的access token
 state|string|如果传递参数，会回传该参数
 
 #### Example
