@@ -428,7 +428,7 @@ Authorization      |string        |false      | 账号授权token, 格式 "Beare
 #### Request: 
 param       |type       |nullable   |description
 ------------|-----------|-----------|-----------
-data        |array      |false      | 目标步数数组
+data        |array      |false      | 目标数组
 startTime   |string     |false      | 开始时间UTC 
 endTime     |string     |false      | 结束时间UTC 
 quality     |number     |false      | 浅睡(1) 中睡(2), 深睡(3) 人工（4）
@@ -471,13 +471,13 @@ Authorization      |string        |false      | 账号授权token, 格式 "Beare
 param       |type       |nullable   |description
 ------------|-----------|-----------|-----------
 date          |string  |false      | 指定日期UTC 
-count         |bool    |true       |如果为True，将返回当日的统计数据
+count         |bool    |true       |如果指定且为True，将返回当日的统计数据
 quality       |Number  |true       |如果指定，将返回指定类型的数据
 #### Response:
 param|type|description
 -|-|-
 success|bool|是否成功
-data        |array   | 目标步数数组
+data        |array   | 目标数组
 _id         |class   | 
 startTime   |String  | UTC格式，注意转换
 endTime     |String  | UTC格式，注意转换
@@ -526,7 +526,7 @@ date |string  |false      | 指定日期UTC
 param|type|description
 -|-|-
 success|bool|是否成功
-data        |array   | 目标步数数组
+data        |array   | 目标数组
 _id         |class   | 按天分组的year， month，day，附带dayOfWeek字段
 dayOfWeek   |number  | 周日（1） ---- 周六（7）
 sleep       |array   | item 包含quality 和 duration 数据
@@ -586,7 +586,7 @@ date |string  |false      | 指定日期UTC
 param|type|description
 -|-|-
 success|bool|是否成功
-data        |array   | 目标步数数组
+data        |array   | 目标数组
 _id         |class   | 按天分组的year， month，day 字段
 sleep       |array   | item 包含quality 和 duration 数据
 #### Sample
