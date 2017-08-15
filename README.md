@@ -412,3 +412,218 @@ response:
      ]
  }
 ```
+
+***
+# 睡眠
+***
+ 
+## 上传睡眠数据
+> 
+#### HttpMethod: `POST`
+#### Url: `/sleep/uploadData`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+data        |array      |false      | 目标步数数组
+startTime   |string     |false      | 开始时间UTC 
+endTime     |string     |false      | 结束时间UTC 
+quality     |number     |false      | 浅睡(1) 中睡(2), 深睡(3) 人工（4）
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data.insertedCount|number| 插入数量
+data.insertedIds|array| 插入记录ids 
+#### Sample
+```
+ request:
+    {
+        "data": [
+          {"quality": 4, "startTime": "2017-08-01T13:00:00Z", "endTime": "2017-08-01T14:00:10Z"},
+          {"quality": 1, "startTime": "2017-08-01T14:30:00Z", "endTime": "2017-08-01T15:00:10Z"},
+        ]
+    }
+response:
+    {
+        "success": true,
+        "data": {
+            "insertedCount": 2,
+            "insertedIds": [
+                "5971570ac60492e20223a421",
+                "5971570ac60492e20223a422"
+            ]
+        }
+    }
+  ``` 
+##  获取每日睡眠（前日21：00~当日09：00）
+> 
+#### HttpMethod: `POST`
+#### Url: `/sleep/getDataByDay`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+date          |string  |false      | 指定日期UTC 
+count         |bool    |true       |如果为True，将返回当日的统计数据
+quality       |Number  |true       |如果指定，将返回指定类型的数据
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data        |array   | 目标步数数组
+_id         |class   | 
+startTime   |String  | UTC格式，注意转换
+endTime     |String  | UTC格式，注意转换
+quality     |number  | 睡眠类型
+duration    |number  | 按分钟统计的数据
+#### Sample
+```
+request:
+   {
+   	"date":"2017-08-15T00:00:00Z"
+   }
+response:
+  {
+      "success": true,
+      "data": [
+                 {
+                     "_id": "59913bd9df5639f605d1f0e1",
+                     "duration": 60,
+                     "startTime": "2017-08-14T13:00:00.000Z",
+                     "endTime": "2017-08-14T14:00:10.000Z",
+                     "quality": 4
+                 },
+                 {
+                     "_id": "59913bd9df5639f605d1f0e2",
+                     "duration": 30,
+                     "startTime": "2017-08-14T14:30:00.000Z",
+                     "endTime": "2017-08-14T15:00:10.000Z",
+                     "quality": 1
+                 }
+      ]
+  }
+```
+##  获取每周睡眠统计（指定日 - 7）
+>
+#### HttpMethod: `POST`
+#### Url: `/sleep/getDataByWeek`
+#### Header:
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request:
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+date |string  |false      | 指定日期UTC
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data        |array   | 目标步数数组
+_id         |class   | 按天分组的year， month，day，附带dayOfWeek字段
+dayOfWeek   |number  | 周日（1） ---- 周六（7）
+sleep       |array   | item 包含quality 和 duration 数据
+#### Sample
+```
+request:
+   {
+    	"date":"2017-08-15T00:00:00Z"
+   }
+response:
+  {
+      "success": true,
+      "data": [
+         {
+                    "_id": {
+                        "year": 2017,
+                        "month": 8,
+                        "day": 14,
+                        "dayOfWeek": 2
+                    },
+                    "sleep": [
+                        {
+                            "quality": 2,
+                            "duration": 320
+                        },
+                        {
+                            "quality": 1,
+                            "duration": 239
+                        },
+                        {
+                            "quality": 4,
+                            "duration": 180
+                        },
+                        {
+                            "quality": 3,
+                            "duration": 90
+                        }
+                    ]
+                }
+               
+      ]
+  }
+```
+##  获取每月睡眠统计（从指定日-30）
+>
+#### HttpMethod: `POST`
+#### Url: `/sleep/getDataByMonth`
+#### Header:
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request:
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+date |string  |false      | 指定日期UTC
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data        |array   | 目标步数数组
+_id         |class   | 按天分组的year， month，day 字段
+sleep       |array   | item 包含quality 和 duration 数据
+#### Sample
+```
+request:
+    {
+    	"date":"2017-08-15T00:00:00Z"
+    }
+response:
+ {
+     "success": true,
+     "data": [
+            {
+                    "_id": {
+                        "year": 2017,
+                        "month": 8,
+                        "day": 2
+                    },
+                    "sleep": [
+                        {
+                            "quality": 4,
+                            "duration": 90
+                        },
+                        {
+                            "quality": 2,
+                            "duration": 120
+                        },
+                        {
+                            "quality": 1,
+                            "duration": 110
+                        },
+                        {
+                            "quality": 3,
+                            "duration": 45
+                        }
+                    ]
+            }
+     ]
+ }
+```
