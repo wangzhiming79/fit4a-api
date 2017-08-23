@@ -782,7 +782,8 @@ value           |number     |false      | 份数
 param|type|description
 -|-|-
 success|bool|是否成功
-data     |array   | 目标数组
+data.insertedCount|number| 插入数量
+data.insertedIds|array| 插入记录ids  
 #### Sample
 ```
  request:  //添加 1份蔬菜 2分蛋白
