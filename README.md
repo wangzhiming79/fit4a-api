@@ -1,9 +1,11 @@
 # 新北动健康API接口文档 v1.0.0
-    由于是接手的项目，目前只收录添加的API，后续有时间将逐步完善。
-    服务器 hostname 列表： 
-    阿里云测试服务器(new):101.201.234.233:4001
-    BXC 内部测试服务器:10.180.3.24:4001
-    BXC DEBUG 服务器：10.180.3.18:4001(有线) 192.168.30.10:4001（无线） 
+        由于是接手的项目，目前只收录添加的API，后续有时间将逐步完善。
+        服务器 hostname 列表： 
+        阿里云测试服务器: 101.201.234.233:4001
+        台北测试服务器:   61.218.20.233
+        官服 
+        BXC 内部测试服务器:10.180.3.24:4001
+        BXC DEBUG 服务器：10.180.3.27:4001(有线) 192.168.30.10:4001（无线）
 ***
 # 接口规范
 ***
@@ -623,6 +625,542 @@ response:
                             "duration": 45
                         }
                     ]
+            }
+     ]
+ }
+```
+***
+# 饮食
+***
+ 
+## 获取食物类型
+> 
+#### HttpMethod: `POST`
+#### Url: `/food/getType`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+counts      |int        |false      | 获取记录的条数
+timeStamp   |string     |false      | 指定起始时间UTC 
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data        |array   | 目标数组
+sequence    |number | 显示次序
+systemType  |bool   | 系统创建
+#### Sample
+```
+ request:
+   {
+       "counts": 100,
+       "timeStamp":"2016-11-20T08:43:28.872Z"
+   }
+response:
+    {
+        "success": true,
+        "data": [
+           {
+                      "_id": "000000000000000000000005",
+                      "foodTypeName": "油脂堅果類",
+                      "foodUnitName": "份",
+                      "foodTypeNote": "NewTaipei",
+                      "sequence": 6,
+                      "iconUrl": "https://f4a.tw/v1/food/downloadphoto?filename=c60fb2e8-e17d-4e9f-b593-8d4a6a2f6eab",
+                      "webIcon": "/images/food/c60fb2e8-e17d-4e9f-b593-8d4a6a2f6eab-_@food_img_oil.png",
+                      "timeStamp": "2016-11-23T02:27:07.238Z",
+                      "systemType": true
+            }
+        ]
+    }
+  ``` 
+
+
+## 获取指定类型的相关食物
+> 
+#### HttpMethod: `POST`
+#### Url: `/food/getItemByType`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+foodTypeID  |string     |false      | id
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data        |array   | 目标数组
+sequence    |number | 显示次序
+systemType  |bool   | 系统创建
+#### Sample
+```
+ request:
+   {
+      "foodTypeID": "000000000000000000000000"
+   }
+response:
+    {
+        "success": true,
+        "data": [
+          {
+                         "_id": "000000000000000000000000",
+                         "foodTypeID": "000000000000000000000000",
+                         "foodItemName": "飯",
+                         "foodItemCalories": 71,
+                         "foodUnitName": "一份=1/4碗 (50g)",
+                         "iconUrl": "https://f4a.tw/v1/food/downloadphoto?filename=dab5366b-d410-48c9-8471-b24d4ce439c8",
+                         "webIcon": "/images/food/dab5366b-d410-48c9-8471-b24d4ce439c8-_@l_food_img_rice.png",
+                         "timeStamp": "2016-11-23T02:28:13.199Z",
+                         "readonly": true,
+                         "recordBy": null,
+                         "isDeleted": false,
+                         "foodTypeDetail": [],
+                         "systemItem": true
+            }
+        ]
+    }
+  ``` 
+
+## 添加饮食
+> 
+#### HttpMethod: `POST`
+#### Url: `/food/createData`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+date            |string     |false      | 就餐日期 
+foodItemID      |string     |false      | 食物item id
+foodItemValue   |number     |false      | 食物的份数 
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+_id      |string | item id
+#### Sample
+```
+ request:
+  {
+      "date" : "2017/08/15",
+      "foodItemID" : "00000000000000000000005b",
+      "foodItemValue" : 10
+  }
+response:
+    {
+        "success": true,
+         "_id": "59955d96565c127f081be16f"
+    }
+```
+
+
+## 添加基本食物（3蔬2果5蛋白8水）
+> 
+#### HttpMethod: `POST`
+#### Url: `/food/createBaseData`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+date            |string     |false      | 就餐日期 
+foods           |array      |false      | 目标数组
+type            |number     |false      | 蔬（1） 果（2） 蛋白（3） 水（4） 
+value           |number     |false      | 份数 
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+_id      |string | item id
+#### Sample
+```
+ request:  //添加 1份蔬菜 2分蛋白
+
+  {
+      "date"  : "2017/08/15",
+      "foods" : [
+         {"type": 1, "value": 1},
+         {"type": 3, "value": 2}    
+      ]     
+  }
+response:
+    {
+       "success": true,
+       "data": {
+               "insertedCount": 2,
+               "insertedIds": [
+                   "599d4477eb4dbf3e081938df",
+                   "599d4477eb4dbf3e081938e0"
+               ]
+           }
+    }
+```
+
+## 更新饮食
+> 
+#### HttpMethod: `POST`
+#### Url: `/food/updateData`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+_id             |string     |false      | 饮食条目id 
+date            |string     |true      | 就餐日期 
+foodItemID      |string     |true      | 食物item id
+foodItemValue   |number     |true      | 食物的份数 
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+_id      |string | item id
+#### Sample
+```
+ request:
+  {
+      "_id" : "599568ffa7ec2c1378491819",
+      "date" : "2017/08/16",
+      "foodItemValue" : 8
+  }
+response:
+    {
+        "success": true,
+        "_id": "599568ffa7ec2c1378491819"
+    }
+```
+
+## 删除饮食
+> 
+#### HttpMethod: `POST`
+#### Url: `/food/deleteData`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+_id             |string     |false      | 饮食条目id 
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+_id      |string | item id
+#### Sample
+```
+ request:
+  {
+      "_id" : "599568ffa7ec2c1378491819",
+  }
+response:
+    {
+        "success": true,
+        "_id": "599568ffa7ec2c1378491819"
+    }
+```
+ 
+## 获取用户所需6大营养数份数
+  > 
+  #### HttpMethod: `POST`
+  #### Url: `/food/getNeedUnits`
+  #### Header: 
+  Headers       |type       |nullable   |description
+  ------------|-----------|-----------|-----------
+  Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+  #### Request: 
+  param       |type       |nullable   |description
+  ------------|-----------|-----------|-----------
+  #### Response:
+  param|type|description
+  -|-|-
+  success|bool|是否成功
+  data        |array  | 目标数组
+  foodTypeID|string |食物类型ID
+  unit      |number |份数
+  #### Sample
+  ```
+   request:
+     {
+       	"contentID" : "000000000000000000000012"
+     }
+  response:
+      {
+          "success": true,
+             "data": [
+                 {
+                     "_id": "599c123281ab675e11f41dd5",
+                     "calories": 1800,
+                     "recordBy": null,
+                     "isDeleted": false,
+                     "units": [
+                         {
+                             "foodTypeID": "000000000000000000000000",
+                             "unit": 3
+                         },
+                         {
+                             "foodTypeID": "000000000000000000000002",
+                             "unit": 5
+                         },
+                         {
+                             "foodTypeID": "000000000000000000000001",
+                             "unit": 1.5
+                         },
+                         {
+                             "foodTypeID": "000000000000000000000003",
+                             "unit": 3
+                         },
+                         {
+                             "foodTypeID": "000000000000000000000004",
+                             "unit": 2
+                         },
+                         {
+                             "foodTypeID": "000000000000000000000005",
+                             "unit": 5
+                         }
+                     ]
+                 }
+             ]  
+      }
+ ``` 
+
+
+## 获取指定日分类饮食数据
+  > 
+  #### HttpMethod: `POST`
+  #### Url: `/food/getGroupDataByDay`
+  #### Header: 
+  Headers       |type       |nullable   |description
+  ------------|-----------|-----------|-----------
+  Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+  #### Request: 
+  param       |type       |nullable   |description
+  ------------|-----------|-----------|-----------
+  date |string  |false      | 指定日期UTC
+  2017/08/15
+  #### Response:
+  param|type|description
+  -|-|-
+  success|bool|是否成功
+  data        |array  | 目标数组
+  foodTypeID|string |食物类型ID
+  unit      |number |份数
+  #### Sample
+  ```
+   request:
+     {
+        "date":"2017-07-18T00:00:00Z"
+     }
+  response:
+     {
+         "success": true,
+         "data": [
+             {
+                 "foodTypeID": "000000000000000000000000",
+                 "foods": [
+                     {
+                         "date": "2016-08-15T07:01:20.580Z",
+                         "foodItemID": "000000000000000000000004",
+                         "foodItemValue": 1
+                     }
+                 ]
+             },
+             {
+                 "foodTypeID": "000000000000000000000001",
+                 "foods": [
+                     {
+                         "date": "2016-08-15T08:01:20.580Z",
+                         "foodItemID": "000000000000000000000014",
+                         "foodItemValue": 1
+                     }
+                 ]
+             },
+             {
+                 "foodTypeID": "000000000000000000000002",
+                 "foods": [
+                     {
+                         "date": "2016-08-15T07:01:20.580Z",
+                         "foodItemID": "00000000000000000000001c",
+                         "foodItemValue": 1
+                     }
+                 ]
+             },
+             {
+                 "foodTypeID": "000000000000000000000003",
+                 "foods": [
+                     {
+                         "date": "2016-08-15T07:01:20.580Z",
+                         "foodItemID": "00000000000000000000003a",
+                         "foodItemValue": 1
+                     }
+                 ]
+             },
+             {
+                 "foodTypeID": "000000000000000000000004",
+                 "foods": [
+                     {
+                         "date": "2016-08-15T07:01:20.580Z",
+                         "foodItemID": "000000000000000000000053",
+                         "foodItemValue": 1
+                     }
+                 ]
+             },
+             {
+                 "foodTypeID": "000000000000000000000005",
+                 "foods": [
+                     {
+                         "date": "2016-08-15T07:01:20.580Z",
+                         "foodItemID": "00000000000000000000006c",
+                         "foodItemValue": 1
+                     }
+                 ]
+             }
+         ]
+     }
+ ``` 
+##  获取每周饮食统计（指定日 - 7）
+>
+#### HttpMethod: `POST`
+#### Url: `/food/getGroupDataByWeek`
+#### Header:
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request:
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+date |string  |false      | 指定日期UTC
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data        |array   | 目标数组
+_id         |class   | 按天分组的year， month，day，附带dayOfWeek字段
+dayOfWeek   |number  | 周日（1） ---- 周六（7）
+sleep       |array   | item 包含quality 和 duration 数据
+#### Sample
+```
+request:
+   {
+    	"date":"2017-08-15T00:00:00Z"
+   }
+response:
+  {
+      "success": true,
+      "data": [
+         {
+                    "_id": {
+                        "year": 2017,
+                        "month": 8,
+                        "day": 14,
+                        "dayOfWeek": 2
+                    },
+                    "foods": [
+                        {
+                            "foodTypeID": "000000000000000000000000",
+                            "totalValue": 5
+                        },
+                        {
+                            "foodTypeID": "000000000000000000000001",
+                            "totalValue": 6
+                        },
+                        {
+                            "foodTypeID": "000000000000000000000002",
+                            "totalValue": 7
+                        },
+                        {
+                            "foodTypeID": "000000000000000000000003",
+                            "totalValue": 8
+                        },
+                        {
+                            "foodTypeID": "000000000000000000000004",
+                            "totalValue": 7
+                        },
+                        {
+                            "foodTypeID": "000000000000000000000005",
+                            "totalValue": 8
+                        }
+                        
+                    ]
+                }
+               
+      ]
+  }
+```
+##  获取每月饮食统计（从指定日-30）
+>
+#### HttpMethod: `POST`
+#### Url: `/food/getGroudDataByMonth`
+#### Header:
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request:
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+date |string  |false      | 指定日期UTC
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data        |array   | 目标数组
+_id         |class   | 按天分组的year， month，day 字段
+sleep       |array   | item 包含quality 和 duration 数据
+#### Sample
+```
+request:
+    {
+    	"date":"2017-08-15T00:00:00Z"
+    }
+response:
+ {
+     "success": true,
+     "data": [
+            {
+                    "_id": {
+                        "year": 2017,
+                        "month": 8,
+                        "day": 2
+                    },
+                    "foods": [
+                       {
+                           "foodTypeID": "000000000000000000000000",
+                           "totalValue": 5
+                       },
+                       {
+                           "foodTypeID": "000000000000000000000001",
+                           "totalValue": 6
+                       },
+                       {
+                           "foodTypeID": "000000000000000000000002",
+                           "totalValue": 7
+                       },
+                       {
+                           "foodTypeID": "000000000000000000000003",
+                           "totalValue": 8
+                       },
+                       {
+                           "foodTypeID": "000000000000000000000004",
+                           "totalValue": 7
+                       },
+                       {
+                           "foodTypeID": "000000000000000000000005",
+                           "totalValue": 8
+                       }
+                       
+                   ]
             }
      ]
  }
