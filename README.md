@@ -782,7 +782,7 @@ value           |number     |false      | 份数
 param|type|description
 -|-|-
 success|bool|是否成功
-_id      |string | item id
+data     |array   | 目标数组
 #### Sample
 ```
  request:  //添加 1份蔬菜 2分蛋白
@@ -954,9 +954,9 @@ response:
   param|type|description
   -|-|-
   success|bool|是否成功
-  data        |array  | 目标数组
-  foodTypeID|string |食物类型ID
-  unit      |number |份数
+  foods              |array  | 目标数组
+  foodItemID         |string |食物ID
+  foodItemValue      |number |份数
   #### Sample
   ```
    request:
@@ -1049,7 +1049,7 @@ success|bool|是否成功
 data        |array   | 目标数组
 _id         |class   | 按天分组的year， month，day，附带dayOfWeek字段
 dayOfWeek   |number  | 周日（1） ---- 周六（7）
-sleep       |array   | item 包含quality 和 duration 数据
+foods       |array   | item foodTypeID 和 totalValue 数据
 #### Sample
 ```
 request:
@@ -1117,7 +1117,7 @@ param|type|description
 success|bool|是否成功
 data        |array   | 目标数组
 _id         |class   | 按天分组的year， month，day 字段
-sleep       |array   | item 包含quality 和 duration 数据
+foods       |array   | item foodTypeID 和 totalValue 数据
 #### Sample
 ```
 request:
