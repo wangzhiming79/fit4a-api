@@ -696,9 +696,11 @@ foodTypeID  |string     |false      | id
 param|type|description
 -|-|-
 success|bool|是否成功
-data        |array   | 目标数组
-sequence    |number | 显示次序
-systemType  |bool   | 系统创建
+data                     |array     | 目标数组
+item.foodTypeID          |string    | 类型id
+item.foodItemName        |string    | 食物名称
+item.foodItemCalories    |number    | 食物卡路里
+
 #### Sample
 ```
  request:
