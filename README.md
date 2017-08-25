@@ -475,6 +475,8 @@ param       |type       |nullable   |description
 date          |string  |false      | 指定日期UTC 
 count         |bool    |true       |如果指定且为True，将返回当日的统计数据
 quality       |Number  |true       |如果指定，将返回指定类型的数据
+refresh       |string  |true       |如果指定，强制刷新数据
+
 #### Response:
 param|type|description
 -|-|-
@@ -741,7 +743,7 @@ Authorization      |string        |false      | 账号授权token, 格式 "Beare
 #### Request: 
 param       |type       |nullable   |description
 ------------|-----------|-----------|-----------
-date            |string     |false      | 就餐日期 
+date            |string     |false      | 就餐日期UTC 
 foodItemID      |string     |false      | 食物item id
 foodItemValue   |number     |false      | 食物的份数 
 #### Response:
@@ -776,7 +778,7 @@ Authorization      |string        |false      | 账号授权token, 格式 "Beare
 #### Request: 
 param       |type       |nullable   |description
 ------------|-----------|-----------|-----------
-date            |string     |false      | 就餐日期 
+date            |string     |false      | 日期UTC  
 foods           |array      |false      | 目标数组
 type            |number     |false      | 蔬（1） 果（2） 蛋白（3） 水（4） 
 value           |number     |false      | 份数 
@@ -791,7 +793,7 @@ data.insertedIds|array| 插入记录ids
  request:  //添加 1份蔬菜 2分蛋白
 
   {
-      "date"  : "2017/08/15",
+      "date"  : "2017-08-25T13:49:00.000Z",
       "foods" : [
          {"type": 1, "value": 1},
          {"type": 3, "value": 2}    
@@ -1071,30 +1073,26 @@ response:
                         "dayOfWeek": 2
                     },
                     "foods": [
-                        {
-                            "foodTypeID": "000000000000000000000000",
-                            "totalValue": 5
-                        },
-                        {
-                            "foodTypeID": "000000000000000000000001",
-                            "totalValue": 6
-                        },
-                        {
-                            "foodTypeID": "000000000000000000000002",
-                            "totalValue": 7
-                        },
-                        {
-                            "foodTypeID": "000000000000000000000003",
-                            "totalValue": 8
-                        },
-                        {
-                            "foodTypeID": "000000000000000000000004",
-                            "totalValue": 7
-                        },
-                        {
-                            "foodTypeID": "000000000000000000000005",
-                            "totalValue": 8
-                        }
+                       {
+                           "foodTypeID": "000000000000000000000002",
+                           "items": [
+                               {
+                                   "date": "2017-08-23T16:00:00.000Z",
+                                   "foodItemID": "00000000000000000000001c",
+                                   "foodItemValue": 3
+                               }
+                           ]
+                       },
+                       {
+                           "foodTypeID": "000000000000000000000003",
+                           "items": [
+                               {
+                                   "date": "2017-08-23T16:00:00.000Z",
+                                   "foodItemID": "000000000000000000000041",
+                                   "foodItemValue": 1
+                               }
+                           ]
+                       }
                         
                     ]
                 }
@@ -1138,31 +1136,27 @@ response:
                         "day": 2
                     },
                     "foods": [
-                       {
-                           "foodTypeID": "000000000000000000000000",
-                           "totalValue": 5
-                       },
-                       {
-                           "foodTypeID": "000000000000000000000001",
-                           "totalValue": 6
-                       },
-                       {
-                           "foodTypeID": "000000000000000000000002",
-                           "totalValue": 7
-                       },
-                       {
-                           "foodTypeID": "000000000000000000000003",
-                           "totalValue": 8
-                       },
-                       {
-                           "foodTypeID": "000000000000000000000004",
-                           "totalValue": 7
-                       },
-                       {
-                           "foodTypeID": "000000000000000000000005",
-                           "totalValue": 8
+                      {
+                          "foodTypeID": "000000000000000000000002",
+                          "items": [
+                              {
+                                  "date": "2017-08-23T16:00:00.000Z",
+                                  "foodItemID": "00000000000000000000001c",
+                                  "foodItemValue": 3
+                              }
+                                  ]
+                              },
+                              {
+                                  "foodTypeID": "000000000000000000000003",
+                                  "items": [
+                                      {
+                                          "date": "2017-08-23T16:00:00.000Z",
+                                          "foodItemID": "000000000000000000000041",
+                                          "foodItemValue": 1
+                                      }
+                                  ]
+                              }
                        }
-                       
                    ]
             }
      ]
