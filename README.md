@@ -1112,7 +1112,7 @@ response:
 ##  获取每月饮食统计（从指定日-30）
 >
 #### HttpMethod: `POST`
-#### Url: `/food/getGroudDataByMonth`
+#### Url: `/food/getGroupDataByMonth`
 #### Header:
 Headers       |type       |nullable   |description
 ------------|-----------|-----------|-----------
@@ -1173,3 +1173,149 @@ response:
      ]
  }
 ```
+
+
+
+## 按名称查找食物项目 
+> 
+#### HttpMethod: `POST`
+#### Url: `/food/getItemByName`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+name        |string     |false      | 查找字串
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data                     |array     | 目标数组
+item.foodTypeID          |string    | 类型id
+item.foodItemName        |string    | 食物名称
+item.foodItemCalories    |number    | 食物卡路里
+
+#### Sample
+```
+ request:
+   {
+       "name" :"果"
+   }
+response:
+    {
+        "success": true,
+        "data": [
+              {
+                     "_id": "000000000000000000000055",
+                     "foodTypeID": "000000000000000000000004",
+                     "foodItemName": "青龍蘋果(小)",
+                     "foodItemCalories": 61,
+                     "foodUnitName": "一份=1個 (130g)",
+                     "iconUrl": "https://f4a.tw/v1/food/downloadphoto?filename=8da7859e-898e-413d-a0f6-b0fd9bfe7aab",
+                     "webIcon": "/images/food/8da7859e-898e-413d-a0f6-b0fd9bfe7aab-_@l_food_img_apple_fuji.png",
+                     "timeStamp": "2016-11-23T02:29:38.195Z",
+                     "readonly": true,
+                     "recordBy": null,
+                     "isDeleted": false,
+                     "foodTypeDetail": [],
+                     "systemItem": true
+                 },
+                 {
+                     "_id": "000000000000000000000057",
+                     "foodTypeID": "000000000000000000000004",
+                     "foodItemName": "百香果",
+                     "foodItemCalories": 62,
+                     "foodUnitName": "一份=約2個 (190g)",
+                     "iconUrl": "https://f4a.tw/v1/food/downloadphoto?filename=3b546aae-0965-4d26-8ba4-476c325ee972",
+                     "webIcon": "/images/food/3b546aae-0965-4d26-8ba4-476c325ee972-_@l_food_img_passion_fruit.png",
+                     "timeStamp": "2016-11-23T02:29:40.196Z",
+                     "readonly": true,
+                     "recordBy": null,
+                     "isDeleted": false,
+                     "foodTypeDetail": [],
+                     "systemItem": true
+                 }
+        ]
+    }
+  ``` 
+***
+# 运动
+***
+ 
+
+## 按名称查找运动项目 
+> 
+#### HttpMethod: `POST`
+#### Url: `/sports/getItemByName`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+name        |string     |false      | 查找字串
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data                     |array     | 目标数组
+item.sportsTypeID        |array     | 运动类型id 数组
+item.sportsItemName      |string    | 運動名称
+item.itemCalories        |number    | 卡路里
+
+#### Sample
+```
+ request:
+   {
+       "name" :"球"
+   }
+response:
+    {
+        "success": true,
+        "data": [
+            {
+                     "_id": "00000000000000000000000e",
+                     "sportsItemName": "排球",
+                     "itemCalories": 3.6,
+                     "itemNote": "大卡/公斤體重/小時",
+                     "timeStamp": "2016-11-23T02:19:06.850Z",
+                     "readonly": true,
+                     "recordBy": null,
+                     "isDeleted": false,
+                     "iconUrl": {
+                         "btnNormal": "https://f4a.tw/v1/sports/downloadphoto?filename=c473130f-0435-43bf-94f8-77f444db6391",
+                         "btnPressed": "https://f4a.tw/v1/sports/downloadphoto?filename=49f4c5b5-5f46-4616-9003-02d8491c51b7",
+                         "img": "https://f4a.tw/v1/sports/downloadphoto?filename=bfd7c5f7-1d30-4953-8c3c-b5545c8280a1"
+                     },
+                     "sportsTypeID": [
+                         "000000000000000000000000",
+                         "000000000000000000000001"
+                     ],
+                     "systemItem": true
+                 },
+                 {
+                     "_id": "00000000000000000000000f",
+                     "sportsItemName": "保齡球",
+                     "itemCalories": 3.6,
+                     "itemNote": "大卡/公斤體重/小時",
+                     "timeStamp": "2016-11-23T02:19:07.851Z",
+                     "readonly": true,
+                     "recordBy": null,
+                     "isDeleted": false,
+                     "iconUrl": {
+                         "btnNormal": "https://f4a.tw/v1/sports/downloadphoto?filename=93871a47-5862-46e2-b99d-5ef8c915932f",
+                         "btnPressed": "https://f4a.tw/v1/sports/downloadphoto?filename=65e51278-d87e-45e5-926f-88704e29cff9",
+                         "img": "https://f4a.tw/v1/sports/downloadphoto?filename=f1f9b877-8025-45bd-8906-e921f0842374"
+                     },
+                     "sportsTypeID": [
+                         "000000000000000000000000",
+                         "000000000000000000000001"
+                     ],
+                     "systemItem": true
+                 }
+        ]
+    }
+  ``` 
