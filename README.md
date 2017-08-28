@@ -962,6 +962,7 @@ response:
   foods              |array  | 目标数组
   foodItemID         |string |食物ID
   foodItemValue      |number |份数
+  _id                |string |饮食ID
   #### Sample
   ```
    request:
@@ -977,6 +978,7 @@ response:
                  "foods": [
                      {
                          "date": "2016-08-15T07:01:20.580Z",
+                            "_id": "599fa6cbe4603985035b6485",
                          "foodItemID": "000000000000000000000004",
                          "foodItemValue": 1
                      }
@@ -987,6 +989,7 @@ response:
                  "foods": [
                      {
                          "date": "2016-08-15T08:01:20.580Z",
+                            "_id": "599fa6cbe4603985035b6485",
                          "foodItemID": "000000000000000000000014",
                          "foodItemValue": 1
                      }
@@ -997,6 +1000,7 @@ response:
                  "foods": [
                      {
                          "date": "2016-08-15T07:01:20.580Z",
+                            "_id": "599fa6cbe4603985035b6485",
                          "foodItemID": "00000000000000000000001c",
                          "foodItemValue": 1
                      }
@@ -1007,6 +1011,7 @@ response:
                  "foods": [
                      {
                          "date": "2016-08-15T07:01:20.580Z",
+                            "_id": "599fa6cbe4603985035b6485",
                          "foodItemID": "00000000000000000000003a",
                          "foodItemValue": 1
                      }
@@ -1017,6 +1022,7 @@ response:
                  "foods": [
                      {
                          "date": "2016-08-15T07:01:20.580Z",
+                            "_id": "599fa6cbe4603985035b6485",
                          "foodItemID": "000000000000000000000053",
                          "foodItemValue": 1
                      }
@@ -1027,6 +1033,7 @@ response:
                  "foods": [
                      {
                          "date": "2016-08-15T07:01:20.580Z",
+                            "_id": "599fa6cbe4603985035b6485",
                          "foodItemID": "00000000000000000000006c",
                          "foodItemValue": 1
                      }
@@ -1054,7 +1061,7 @@ success|bool|是否成功
 data        |array   | 目标数组
 _id         |class   | 按天分组的year， month，day，附带dayOfWeek字段
 dayOfWeek   |number  | 周日（1） ---- 周六（7）
-foods       |array   | item foodTypeID 和 totalValue 数据
+foods       |array   | item foodTypeID 和 totalValue， _id 数据
 #### Sample
 ```
 request:
@@ -1078,6 +1085,7 @@ response:
                            "items": [
                                {
                                    "date": "2017-08-23T16:00:00.000Z",
+                                    "_id": "599fa6cbe4603985035b6485",
                                    "foodItemID": "00000000000000000000001c",
                                    "foodItemValue": 3
                                }
@@ -1088,6 +1096,7 @@ response:
                            "items": [
                                {
                                    "date": "2017-08-23T16:00:00.000Z",
+                                    "_id": "599fa6cbe4603985035b6485",
                                    "foodItemID": "000000000000000000000041",
                                    "foodItemValue": 1
                                }
@@ -1118,7 +1127,7 @@ param|type|description
 success|bool|是否成功
 data        |array   | 目标数组
 _id         |class   | 按天分组的year， month，day 字段
-foods       |array   | item foodTypeID 和 totalValue 数据
+foods       |array   | item foodTypeID 和 totalValue, _id数据
 #### Sample
 ```
 request:
@@ -1141,6 +1150,7 @@ response:
                           "items": [
                               {
                                   "date": "2017-08-23T16:00:00.000Z",
+                                    "_id": "599fa6cbe4603985035b6485",
                                   "foodItemID": "00000000000000000000001c",
                                   "foodItemValue": 3
                               }
@@ -1151,6 +1161,7 @@ response:
                                   "items": [
                                       {
                                           "date": "2017-08-23T16:00:00.000Z",
+                                            "_id": "599fa6cbe4603985035b6485",
                                           "foodItemID": "000000000000000000000041",
                                           "foodItemValue": 1
                                       }
