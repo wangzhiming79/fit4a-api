@@ -1319,3 +1319,47 @@ response:
         ]
     }
   ``` 
+***
+# 宠物
+***
+ 
+
+## 获取宠物状态 
+> 
+#### HttpMethod: `GET`
+#### Url: `/pet/getStatus`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+date        |string     |true      | 指定日期UTC，不传默认当日
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data    |object    | 目标
+mode    |number    | 积分模式：0（蔬菜）1（水果） 2（蛋白） 3（水） 4（步）5（睡）
+score   |number    | 得分
+msg     |string    | 提示信息
+
+
+#### Sample
+```
+ request:
+   {
+       "date" :"球"
+   }
+response:
+    {
+        "success": true,
+        "data": {
+               "msg": "主人~今天蛋白質的基本份量達到了!",
+               "score": 11,
+               "mode": 0
+        }
+    }
+  ```   
+  
