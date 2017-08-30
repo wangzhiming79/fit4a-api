@@ -1174,8 +1174,6 @@ response:
  }
 ```
 
-
-
 ## 按名称查找食物项目 
 > 
 #### HttpMethod: `POST`
@@ -1240,6 +1238,66 @@ response:
         ]
     }
   ``` 
+  
+## 按月统计报表 
+> 
+#### HttpMethod: `POST`
+#### Url: `/food/getMonthReport`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+date        |string     |true      | 指定日期UTC， 如果不填，默认当月
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data                     |array     | 目标数组
+item.foodTypeID          |string    | 类型id
+item.standardValue       |number    | 标准参考值 
+item.value               |number    | 实际值
+item.range               |number    | 区间 （0）<=80% (1) <=100% (2)>100%
+item.msg                 |string    | 提示信息
+
+
+#### Sample
+```
+ request:
+   {
+         "date":"2017-08-27T16:00:00.000Z"
+   }
+response:
+    {
+        "success": true,
+        "data": [
+                  {
+                       "fontTypeID": "000000000000000000000000",
+                       "standardValue": "93.0",
+                       "value": "0.0",
+                       "range": 0,
+                       "msg": "碳水化合物其實很重要，可以提供身體一天所需能量，應該吃得巧而不是完全避免；建議食用未精緻、含麩皮的全穀或以根莖類取代精緻過的白飯、白麵、麵包。"
+                   },
+                   {
+                       "fontTypeID": "000000000000000000000002",
+                       "standardValue": "155.0",
+                       "value": "66.0",
+                       "range": 0,
+                       "msg": "蛋白質是肌肉、組織、骨骼和牙齒組成的重要來源! 攝取不足則容易造成發育不良、水腫、貧血、對疾病抵抗力弱、易疲倦等症狀。建議攝取好的奶類、豆類、蛋類、魚類、肉類、豆製品以獲取優質蛋白質喔!"
+                   },
+                   {
+                       "fontTypeID": "000000000000000000000001",
+                       "standardValue": "46.5",
+                       "value": "120.0",
+                       "range": 1,
+                       "msg": "乳製品你吃對了嗎?奶類食品中所含的乳脂肪為動物性脂肪，故建議選用低脂或脫脂奶類更健康!乳糖不耐患者可透過優酪乳、優格等獲取營養素，但優酪乳、優格製作時常加入較多的糖，熱量較鮮乳高也要注意喔!"
+                   }
+        ]
+    }
+  ``` 
+  
 ***
 # 运动
 ***
