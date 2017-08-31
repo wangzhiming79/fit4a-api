@@ -647,7 +647,7 @@ Authorization      |string        |false      | 账号授权token, 格式 "Beare
 param       |type       |nullable   |description
 ------------|-----------|-----------|-----------
 counts      |int        |false      | 获取记录的条数
-timeStamp   |string     |false      | 指定起始时间UTC 
+timeStamp   |string     |false      | 指定起始时间UTC之后的记录  （ "2016-10-01T16:00:00.000Z" ）
 #### Response:
 param|type|description
 -|-|-
@@ -680,7 +680,52 @@ response:
         ]
     }
   ``` 
-
+## 获取食物
+> 
+#### HttpMethod: `POST`
+#### Url: `/food/getItem`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+counts      |int        |false      | 获取记录的条数
+timeStamp   |string     |false      | 指定起始时间UTC 之后的记录（"2016-08-27T16:00:00.000Z"）
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data        |array   | 目标数组
+item.foodTypeID          |string    | 类型id
+item.foodItemName        |string    | 食物名称
+item.foodItemCalories    |number    | 食物卡路里
+#### Sample
+```
+ request:
+   {
+       "counts": 100,
+       "timeStamp":"2016-11-20T08:43:28.872Z"
+   }
+response:
+    {
+        "success": true,
+        "data": [
+           {
+                      "_id": "000000000000000000000005",
+                      "foodTypeName": "油脂堅果類",
+                      "foodUnitName": "份",
+                      "foodTypeNote": "NewTaipei",
+                      "sequence": 6,
+                      "iconUrl": "https://f4a.tw/v1/food/downloadphoto?filename=c60fb2e8-e17d-4e9f-b593-8d4a6a2f6eab",
+                      "webIcon": "/images/food/c60fb2e8-e17d-4e9f-b593-8d4a6a2f6eab-_@food_img_oil.png",
+                      "timeStamp": "2016-11-23T02:27:07.238Z",
+                      "systemType": true
+            }
+        ]
+    }
+  ``` 
 
 ## 获取指定类型的相关食物
 > 
