@@ -892,7 +892,7 @@ response:
   param|type|description
   -|-|-
   success|bool|是否成功
-  data        |array  | 目标数组
+  data      |array  |Object
   foodTypeID|string |食物类型ID
   unit      |number |份数
   #### Sample
@@ -904,40 +904,36 @@ response:
   response:
       {
           "success": true,
-             "data": [
+             "data": 
                  {
-                     "_id": "599c123281ab675e11f41dd5",
-                     "calories": 1800,
-                     "recordBy": null,
-                     "isDeleted": false,
-                     "units": [
-                         {
-                             "foodTypeID": "000000000000000000000000",
-                             "unit": 3
-                         },
-                         {
-                             "foodTypeID": "000000000000000000000002",
-                             "unit": 5
-                         },
-                         {
-                             "foodTypeID": "000000000000000000000001",
-                             "unit": 1.5
-                         },
-                         {
-                             "foodTypeID": "000000000000000000000003",
-                             "unit": 3
-                         },
-                         {
-                             "foodTypeID": "000000000000000000000004",
-                             "unit": 2
-                         },
-                         {
-                             "foodTypeID": "000000000000000000000005",
-                             "unit": 5
-                         }
-                     ]
-                 }
-             ]  
+                    "calories": 1800,
+                           "units": [
+                               {
+                                   "foodTypeID": "000000000000000000000000",
+                                   "unit": 3
+                               },
+                               {
+                                   "foodTypeID": "000000000000000000000002",
+                                   "unit": 5
+                               },
+                               {
+                                   "foodTypeID": "000000000000000000000001",
+                                   "unit": 1.5
+                               },
+                               {
+                                   "foodTypeID": "000000000000000000000003",
+                                   "unit": 3
+                               },
+                               {
+                                   "foodTypeID": "000000000000000000000004",
+                                   "unit": 2
+                               },
+                               {
+                                   "foodTypeID": "000000000000000000000005",
+                                   "unit": 5
+                               }
+                           ]
+             }
       }
  ``` 
 
