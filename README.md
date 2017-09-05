@@ -1606,7 +1606,7 @@ param       |type       |nullable   |description
 param|type|description
 -|-|-
 success|bool|是否成功
-data    |array     | array 内部object 字段汉仪同上传
+data    |array     | array 内部object 字段含义同上传
 
 #### Sample
 ```
