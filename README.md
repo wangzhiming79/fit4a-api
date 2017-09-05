@@ -1504,3 +1504,137 @@ response:
     }
   ```   
   
+***
+# 健康币
+***
+
+## 插入记录 
+> 
+#### HttpMethod: `POST`
+#### Url: `/healthCoin/insert`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+type        |number     |false      | 类型 1（收入） 2 （支出）
+score       |number     |false      | 分值
+description |string     |true       | 描述信息
+
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data    |object    | 目标
+_id     |String    | 
+
+#### Sample
+```
+ request:
+ {
+      "score":30,
+      "type":1,
+      "description":"use for gift"
+ }
+response:
+  {
+      "success": true,
+      "data": {
+          "_id": "59ae0dbdc4f616960b1aa276"
+      }
+  }
+  ```   
+ 
+
+## 获取余额统计 
+> 
+#### HttpMethod: `POST`
+#### Url: `/healthCoin/summery`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data    |object    | 目标
+income  |number    | 收入
+expenses|number    | 支出
+balance |number    | 余额
+
+#### Sample
+```
+ request:
+ {
+      "score":30,
+      "type":1,
+      "description":"use for gift"
+ }
+response:
+  {
+        "success": true,
+        "data": {
+            "income": 100,
+            "expenses": 60,
+            "balance": 40
+        }
+   }
+  ```   
+
+ 
+
+## 获取明细 
+> 
+#### HttpMethod: `POST`
+#### Url: `/healthCoin/detail`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data    |array     | array 内部object 字段汉仪同上传
+
+#### Sample
+```
+ request:
+ {
+      "score":30,
+      "type":1,
+      "description":"use for gift"
+ }
+response:
+   {
+        "success": true,
+         "data": [
+               {
+                   "_id": "59ae025fd5487ec70af574d5",
+                   "timeStamp": "2017-09-05T01:48:15.336Z",
+                   "score": 10,
+                   "type": 1,
+                   "description": "add from walk"
+               },
+               {
+                   "_id": "59ae0268d5487ec70af574d6",
+                   "timeStamp": "2017-09-05T01:48:24.499Z",
+                   "score": 10,
+                   "type": 1,
+                   "description": "add from sleep"
+               }
+         ]
+   }
+  ```   
+        
