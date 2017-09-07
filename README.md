@@ -1607,7 +1607,7 @@ param|type|description
 -|-|-
 success|bool|是否成功
 data    |array     | array 内部object 字段含义同上传
-
+ 
 #### Sample
 ```
  request:
@@ -1637,4 +1637,146 @@ response:
          ]
    }
   ```   
-        
+
+ 
+***
+# 用药提醒
+***
+
+## 获取用药提醒  
+> 
+#### HttpMethod: `POST`
+#### Url: `/user/getMedicationReminder`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data    |object    | 目标
+_id     |String    | string
+items   |Array     | 用药提醒内容， 
+
+#### Sample
+```
+ request:
+ {
+      
+ }
+response:
+  {
+      "success": true,
+       "data": {
+              "_id": "59b109d4bb0c6994e0d61e81",
+              "items": [
+                  {
+                      "order": 0,
+                      "title": "一天一次（QD):每日9點提醒",
+                      "enable": false,
+                      "_id": "59b108fe45d55ab00be9ad98",
+                      "reminderTime": [
+                          9
+                      ]
+                  },
+                  {
+                      "order": 1,
+                      "title": "一天兩次（BID):每日9點，17點提醒",
+                      "enable": false,
+                      "_id": "59b108fe45d55ab00be9ad97",
+                      "reminderTime": [
+                          9,
+                          17
+                      ]
+                  },
+                  {
+                      "order": 2,
+                      "title": "一天三次（TIDPC):每日9點，每日13點，18點提醒",
+                      "enable": false,
+                      "_id": "59b108fe45d55ab00be9ad96",
+                      "reminderTime": [
+                          9,
+                          13,
+                          17
+                      ]
+                  }
+              ]
+          }
+  }
+  ```   
+
+## 更新用药提醒  
+> 
+#### HttpMethod: `POST`
+#### Url: `/user/updateMedicationReminder`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+_id         |String     |false      |id
+items       |Array      |false      |get时获取的items，更新时请设置 enable ，取值为 true/false
+
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data    |object    | 目标
+_id     |String    | 
+
+#### Sample
+```
+ request:
+ {
+       "_id": "59b109d4bb0c6994e0d61e81",
+                    "items": [
+                        {
+                            "order": 0,
+                            "title": "一天一次（QD):每日9點提醒",
+                            "enable": false,
+                            "_id": "59b108fe45d55ab00be9ad98",
+                            "reminderTime": [
+                                9
+                            ]
+                        },
+                        {
+                            "order": 1,
+                            "title": "一天兩次（BID):每日9點，17點提醒",
+                            "enable": false,
+                            "_id": "59b108fe45d55ab00be9ad97",
+                            "reminderTime": [
+                                9,
+                                17
+                            ]
+                        },
+                        {
+                            "order": 2,
+                            "title": "一天三次（TIDPC):每日9點，每日13點，18點提醒",
+                            "enable": false,
+                            "_id": "59b108fe45d55ab00be9ad96",
+                            "reminderTime": [
+                                9,
+                                13,
+                                17
+                            ]
+                        }
+                    ]
+ }
+response:
+  {
+      "success": true,
+      "data": {
+          "n": 1,
+          "nModified": 1,
+          "ok": 1
+      }
+  }
+  ```   
+                
