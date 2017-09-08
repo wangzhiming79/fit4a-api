@@ -1779,4 +1779,53 @@ response:
       }
   }
   ```   
-                
+ 
+***
+# 广告
+***
+
+## 获取首页广告  
+> 
+#### HttpMethod: `POST`
+#### Url: `/adseed/homeAD`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data    |object    | 目标
+_id     |String    | string
+type    |Number    |  1 首页 2 底部 3 底部 
+source  |String    | 广告商
+keyId   |String    | 广告识别ID
+
+#### Sample
+```
+ request:
+ {
+      
+ }
+response:
+  {
+      "success": true,
+       "data": {
+              "_id": "000000000000000000000000",
+              "type": 1,
+              "source": "youtube",
+              "keyId": "v3O61vIN9Ks",
+              "moreLink": "https://www.youtube.com/channel/UCltLZ1l3dgPvs_INJf-770g",
+              "title": "新北勞工八月大腸癌免費檢查",
+              "content": "新北市轄內工商行號的勞工朋友不分男女、只要揪滿30人，就可與當地衛生所協調日期，派專業的醫護團隊前往公司免費進行大腸癌及口腔癌篩檢，守護勞工朋友的健康、守護勞工朋友的家庭",
+              "timeStamp": "2017-09-08T01:32:53.133Z",
+              "recordBy": null,
+              "isDeleted": false
+          }
+  }
+  ```                   
