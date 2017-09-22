@@ -69,7 +69,8 @@ code|message
     1029|RefreshTokenSignError 
     1030|RefreshTokenIdError
     1031|BindingHasExist
-
+    1032|UnSupportAccountType
+    1033|NoEnoughIcon
 ***
 # 账户
 ***
@@ -1638,7 +1639,96 @@ response:
    }
   ```   
 
+
+## 获取抽獎列表 
+> 
+#### HttpMethod: `POST`
+#### Url: `/healthCoin/getLotteryList`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data       | array     | array 
+item.score | number    | 所需健康幣
+item.title | string     |
+item.description| string|
  
+#### Sample
+```
+ request:
+ {
+     
+ }
+response:
+   {
+       "success": true,
+       "data": [
+           {
+               "_id": "59c4cbdbb920b7e00e537d71",
+               "timeStamp": "2017-09-22T08:37:47.478Z",
+               "score": 5,
+               "title": "7-11 500元员商品券 X名",
+               "description": "7-11 500元商品劵 X名"
+           },
+           {
+               "_id": "59c4cc85b920b7e00e537d72",
+               "timeStamp": "2017-09-22T08:40:37.625Z",
+               "score": 120,
+               "title": "Zenbo標準版+充電器 1名",
+               "description": "Zenbo標準版+充電器 1名"
+           },
+           {
+               "_id": "59c4ccc2b920b7e00e537d73",
+               "timeStamp": "2017-09-22T08:41:38.592Z",
+               "score": 200,
+               "title": "iPhone X 64G顏色隨機 1名",
+               "description": "iPhone X 64G顏色隨機 1名"
+           }
+       ]
+   }
+  ```   
+
+## 參加抽獎，注意系統會自動扣健康幣
+> 
+#### HttpMethod: `POST`
+#### Url: `/healthCoin/signLottery`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+_id         |string     |false      | 獎項id
+
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功，如果餘額不足，錯誤碼1033，
+balance   |number    | 成功返回賬號餘額
+
+#### Sample
+```
+ request:
+ {
+     "_id":"59c4cbdbb920b7e00e537d71"
+ }
+response:
+  {
+      "success": true,
+      "balance": 11
+  }
+  ```   
+ 
+  
 ***
 # 用药提醒
 ***
@@ -1828,4 +1918,57 @@ response:
               "isDeleted": false
           }
   }
-  ```                   
+  ``` 
+  
+
+## 获取活動快訊滾動列表  
+> 
+#### HttpMethod: `POST`
+#### Url: `/activity/getMarqueeList`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data    |Array    | 目标
+
+#### Sample
+```
+ request:
+ {
+      
+ }
+response:
+  {
+      "success": true,
+      "data": [
+              {
+                  "title": "社區課程002",
+                  "description": "動健康初級班，適合從未接觸過動健康的民眾。",
+                  "_id": "59b74a1282e7db094ce74107"
+              },
+              {
+                  "title": "專業運動課程001",
+                  "description": "動健康初級班，適合從未接觸過動健康的民眾。",
+                  "_id": "59b74a1282e7db094ce74104"
+              },
+              {
+                  "title": "社區運動班01",
+                  "description": "活動02",
+                  "_id": "59b742d01dae2105208a3283"
+              },
+              {
+                  "title": "大型活動一",
+                  "description": "好吃好玩 der",
+                  "_id": "59af7d2f042b6e0f107006be"
+              }
+       ]
+  }
+  ```                     
