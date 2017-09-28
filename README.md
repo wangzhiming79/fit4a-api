@@ -1727,7 +1727,44 @@ response:
       "balance": 11
   }
   ```   
- 
+  
+## 检查是否參加过抽獎
+> 
+#### HttpMethod: `POST`
+#### Url: `/healthCoin/checkSignedLottery`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+_id         |string     |false      | 獎項id
+
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data   |object    | 如果没有返回null，否则返回相关信息。
+
+#### Sample
+```
+ request:
+ {
+     "_id":"59c4cbdbb920b7e00e537d71"
+ }
+response:
+ {
+     "success": true,
+     "data": {
+         "_id": "59cc900e044173820639fb1e",
+         "timeStamp": "2017-09-28T06:00:46.858Z",
+         "score": 5,
+         "description": "7-11 500元员商品券 X名"
+     }
+ }
+  ```   
+  
   
 ***
 # 用药提醒
