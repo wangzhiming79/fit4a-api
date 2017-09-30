@@ -922,6 +922,44 @@ response:
         "_id": "599568ffa7ec2c1378491819"
     }
 ```
+
+
+## 删除多条饮食数据
+> 
+#### HttpMethod: `POST`
+#### Url: `/food/deleteManyData`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+_idArr      |array     |false      | 饮食条目id 数组
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+_id      |object | update相关信息
+#### Sample
+```
+ request:
+  {
+     	"_idArr":[
+     	    "599f9c012922c51f0333b327",
+     		"599f9c012922c51f0333b326"
+     		]
+  }
+response:
+    {
+        "success": true,
+       "_id": {
+              "n": 2,
+              "nModified": 2,
+              "ok": 1
+          }
+    }
+``` 
  
 ## 获取用户所需6大营养数份数
   > 
