@@ -2046,4 +2046,192 @@ response:
               }
        ]
   }
-  ```                     
+  ```      
+  
+ 
+  
+***
+# 群組功能
+***
+
+## 創建群組  
+> 
+#### HttpMethod: `POST`
+#### Url: `/fitGroup/create`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+title       |String     |false      |名稱
+type        |Number     |false      |類型 (1)萬步走 (2)運動 30 分 (3) 五蔬果 (4)八杯水
+visible     |boolean    |false      | 開放true 私有false
+description |String     |true       |介紹
+avatar      |String     |true       |圖標Url ，請先call upload  上傳圖像后獲取文件url 填入，可不填
+  
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data    |object    | 目标
+_id     |String    | string
+
+#### Sample
+```
+ request:
+ {
+      "title":"干杯吧朋友",
+      "type":1,
+      "description":"每天八杯水，健康五十年",
+      "visible":true,
+      "avatar":"http://localhost:4001/v1/fitGroup/downloadphoto?filename=dfdd370c-912b-458a-a145-0e2ea8a96067"
+ }
+response:
+ {
+     "success": true,
+     "data": {
+         "_id": "59e490e2e31bee270dbaa80e"
+     }
+ }
+  ```   
+
+
+## 上傳群組圖標  
+> 
+#### HttpMethod: `POST`
+#### Url: `/fitGroup/upload`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+  files     |File       |false       |上傳採用的是 form-data 模式，具體食物上傳
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data    |Object     | 
+ 
+#### Sample
+```
+ request:
+{
+    "types":[2]
+}
+response:
+{
+    "success": true,
+    "fileUrl": "http://localhost:4001/v1/fitGroup/downloadphoto?filename=53bbd27c-8422-4baf-96c2-1648f9753b8f"
+}
+  ```   
+
+## 下載群組圖標  
+> 
+#### HttpMethod: `GET`
+#### Url: `/fitGroup/download`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+  filename  |string       |false    | 返回的標識字串
+#### Response:
+param|type|description
+-|-|-
+圖形數據
+ 
+#### Sample
+```
+URL 格式：http://localhost:4001/v1/fitGroup/downloadphoto?filename=19a94389-63d2-43a8-bb72-b688a7d772fe
+
+  ```   
+
+## 查看我的群組
+> 
+#### HttpMethod: `POST`
+#### Url: `/fitGroup/list`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+  
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data    |Array     | 
+ 
+#### Sample
+```
+ request:
+{
+   
+}
+response:
+ {
+     "success": true,
+     "data": [
+          {
+             "_id": "59e490e2e31bee270dbaa80e",
+             "title": "運動大本營",
+             "type": 2,
+             "description": "每天運動30分，健康五十年",
+             "avatar": "http://localhost:4001/v1/fitGroup/downloadphoto?filename=dfdd370c-912b-458a-a145-0e2ea8a96067",
+             "numberOfMember": 1
+           }
+   ]
+ }
+  ```   
+
+## 查找群組  
+> 
+#### HttpMethod: `POST`
+#### Url: `/fitGroup/find`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+  types     |Array      |true       |不傳默認顯示所有群組，類型 (1)萬步走 (2)運動 30 分 (3) 五蔬果 (4)八杯水
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data    |Array     | 
+ 
+#### Sample
+```
+ request:
+{
+    "types":[2]
+}
+response:
+ {
+     "success": true,
+     "data": [
+          {
+             "_id": "59e490e2e31bee270dbaa80e",
+             "title": "運動大本營",
+             "type": 2,
+             "description": "每天運動30分，健康五十年",
+             "avatar": "http://localhost:4001/v1/fitGroup/downloadphoto?filename=dfdd370c-912b-458a-a145-0e2ea8a96067",
+             "numberOfMember": 1
+           }
+   ]
+ }
+  ```   
+
+
+
+  
