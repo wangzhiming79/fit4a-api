@@ -2109,7 +2109,7 @@ Authorization      |string        |false      | 账号授权token, 格式 "Beare
 #### Request: 
 param       |type       |nullable   |description
 ------------|-----------|-----------|-----------
-  files     |File       |false       |上傳採用的是 form-data 模式，具體食物上傳
+  files     |File       |false       |上傳採用的是 form-data 模式，具體參考食物上傳
 #### Response:
 param|type|description
 -|-|-
@@ -2132,7 +2132,7 @@ response:
 ## 下載群組圖標  
 > 
 #### HttpMethod: `GET`
-#### Url: `/fitGroup/download`
+#### Url: `/fitGroup/downloadphoto`
 #### Header: 
 Headers       |type       |nullable   |description
 ------------|-----------|-----------|-----------
