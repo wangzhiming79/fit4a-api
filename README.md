@@ -2152,7 +2152,7 @@ URL 格式：http://localhost:4001/v1/fitGroup/downloadphoto?filename=19a94389-6
 
   ```   
 
-## 查看我的群組
+## 群組列表
 > 
 #### HttpMethod: `POST`
 #### Url: `/fitGroup/list`
@@ -2186,11 +2186,60 @@ response:
              "type": 2,
              "description": "每天運動30分，健康五十年",
              "avatar": "http://localhost:4001/v1/fitGroup/downloadphoto?filename=dfdd370c-912b-458a-a145-0e2ea8a96067",
-             "numberOfMember": 1
+             "numberOfMember": 1,
+             "owner": true
            }
    ]
  }
   ```   
+  
+
+
+## 查看待审核群組
+> 
+#### HttpMethod: `POST`
+#### Url: `/fitGroup/listPending`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+  
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data    |Array     |
+item.owner: 是否是群主 , 与下面 2，3状态组合， 可以得出4种状态 
+item.member.state  （1） 正常 （2） 邀请， （3） 申请 
+ 
+ 
+#### Sample
+```
+ request:
+{
+   
+}
+response:
+ {
+     "success": true,
+     "data": [
+          {
+                     "_id": "59e47165a2ee860a0a9c49a7",
+                     "avatar": "http://101.201.234.233/v1/fitGroup/downloadphoto?filename=dfdd370c-912b-458a-a145-0e2ea8a96067",
+                     "title": "吃水果大賽",
+                     "member": {
+                         "userNo": "59ddbbf33f398a155c9c5310",
+                         "state": 3,
+                         "_id": "59e87732cbcab406114677c9"
+                     },
+                     "owner": true
+          }
+   ]
+ }
+```
 
 ## 查找群組  
 > 
@@ -2226,12 +2275,171 @@ response:
              "type": 2,
              "description": "每天運動30分，健康五十年",
              "avatar": "http://localhost:4001/v1/fitGroup/downloadphoto?filename=dfdd370c-912b-458a-a145-0e2ea8a96067",
-             "numberOfMember": 1
+             "numberOfMember": 1,
+             
            }
    ]
+ }
+  ```
+  
+## 群组详情
+> 
+#### HttpMethod: `POST`
+#### Url: `/fitGroup/detail`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+  groupId   | string    | false     | 群id
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data    |Object     | 
+ 
+#### Sample
+```
+ request:
+{
+    "groupId":"59e891ae8143f22f13d66242"
+}
+response:
+{
+    "success": true,
+    "data": {
+        "_id": "59e891ae8143f22f13d66242",
+        "title": "跑步軍團-093-310",
+        "avatar": "http://localhost:4001/v1/group/downloadphoto?filename=dfdd370c-912b-458a-a145-0e2ea8a96067",
+        "members": [
+            {
+                "userNo": "59ddbbf33f398a155c9c5310",
+                "name": "billwang",
+                "photo": "default.png"
+            }
+        ],
+        "owner": false
+    }
+}
+  ```     
+
+## 查找用户  
+> 
+#### HttpMethod: `POST`
+#### Url: `/fitGroup/findUser`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+account     | string    |false      | 用户账号或手机号
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data     |Object     | 
+item._id   | String    | userNo
+item.photo | String    | 参考用户api 获取头像
+ 
+#### Sample
+```
+ request:
+{
+    "types":[2]
+}
+response:
+ {
+     "success": true,
+      "data": {
+            "_id": "5982ec27587743070562bf8e",
+            "name": "billwang",
+            "photo": "default.png"
+      }
  }
   ```   
 
 
+## 群主功能
+> 
+#### HttpMethod: `POST`
+#### Url: `/fitGroup/invite`
+#### Url: `/fitGroup/approve`
+#### Url: `/fitGroup/reject`
+#### Url: `/fitGroup/kick`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+groupId     | string    |false      | 群ID
+userNo     | string     |false      | 用户ID
 
-  
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data     |Object     | 
+ 
+#### Sample
+```
+ request:
+{
+  "groupId":"59e891ae8143f22f13d66242",
+  "userNo":"5982ec27587743070562bf8e"
+}
+response:
+ {
+     "success": true,
+      "data": {
+           "n": 1,
+           "nModified": 1,
+           "ok": 1
+      }
+ }
+  ```
+
+## 用户功能 
+> 
+#### HttpMethod: `POST`
+#### Url: `/fitGroup/apply`
+#### Url: `/fitGroup/agree`
+#### Url: `/fitGroup/disagree`
+#### Url: `/fitGroup/quit`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+groupId     | string    |false      | 群ID
+
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data     |Object     | 
+ 
+#### Sample
+```
+ request:
+{
+  "groupId":"59e891ae8143f22f13d66242",
+}
+response:
+ {
+     "success": true,
+      "data": {
+           "n": 1,
+           "nModified": 1,
+           "ok": 1
+      }
+ }
+  ```        
+ 
