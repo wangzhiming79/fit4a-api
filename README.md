@@ -416,6 +416,42 @@ response:
  }
 ```
 
+## 查看我的步数总排名 
+> 
+#### HttpMethod: `POST`
+#### Url: `/walk/getTodayRank`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+name        |string     |false      | 查找字串
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data                     |object     | 目标数组
+item.lv                  |number     | 0 表示无排名 
+item.total               |number     | 今日运动人数
+
+#### Sample
+```
+ request:
+   {
+      
+   }
+response:
+   {
+       "success": true,
+       "data": {
+           "lv": 0,
+           "total": 1
+       }
+   }
+  ``` 
+
 ***
 # 睡眠
 ***
@@ -1498,6 +1534,43 @@ response:
          }
      }
    ``` 
+
+
+## 查看我的今日运动总排名 
+> 
+#### HttpMethod: `POST`
+#### Url: `/sports/getTodayRank`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+name        |string     |false      | 查找字串
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data                     |object     | 目标数组
+item.lv                  |number     | 0 表示无排名 
+item.total               |number     | 今日运动人数
+
+#### Sample
+```
+ request:
+   {
+      
+   }
+response:
+   {
+       "success": true,
+       "data": {
+           "lv": 0,
+           "total": 1
+       }
+   }
+  ``` 
   
 ***
 # 宠物
