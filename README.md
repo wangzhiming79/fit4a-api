@@ -2253,6 +2253,8 @@ Authorization      |string        |false      | 账号授权token, 格式 "Beare
 param       |type       |nullable   |description
 ------------|-----------|-----------|-----------
   types     |Array      |true       |不傳默認顯示所有群組，類型 (1)萬步走 (2)運動 30 分 (3) 五蔬果 (4)八杯水
+  name      |String     |true       |群名
+  groupId   |Array      |true       |群組ID
 #### Response:
 param|type|description
 -|-|-
@@ -2442,4 +2444,144 @@ response:
       }
  }
   ```        
+
+## 获取群组运动第一名
+> 
+#### HttpMethod: `POST`
+#### Url: `/fitGroup/getBestSporter`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+  groupId   | string    | false     | 群id
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data    |Object     | 
  
+#### Sample
+```
+ request:
+{
+    "groupId":"59e891ae8143f22f13d66242"
+}
+response:
+{
+    "success": true,
+    "data": {
+        "userNo": "59ddbbf33f398a155c9c5310",
+        "name": "billwang",
+        "photo": "default.png",
+        "minutes": 60
+    }
+}
+  ```   
+
+## 获取群组步数第一名
+> 
+#### HttpMethod: `POST`
+#### Url: `/fitGroup/getBestWalker`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+  groupId   | string    | false     | 群id
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data    |Object     | 
+ 
+#### Sample
+```
+ request:
+{
+    "groupId":"59e891ae8143f22f13d66242"
+}
+response:
+{
+    "success": true,
+    "data": {
+        "userNo": "59ddbbf33f398a155c9c5310",
+        "name": "billwang",
+        "photo": "default.png",
+        "steps": 9999
+    }
+}
+  ```     
+  
+## 获取我的步数排名
+> 
+#### HttpMethod: `POST`
+#### Url: `/fitGroup/getMyWalkRank`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+  groupId   | string    | false     | 群id
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data    |Object     | 
+ 
+#### Sample
+```
+ request:
+{
+    "groupId":"59e891ae8143f22f13d66242"
+}
+response:
+{
+    "success": true,
+    "data": {
+        "lv": 1,
+        "steps": 5678
+    }
+}
+  ```     
+
+## 获取我的运动排名
+> 
+#### HttpMethod: `POST`
+#### Url: `/fitGroup/getMySportRank`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+  groupId   | string    | false     | 群id
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data    |Object     | 
+ 
+#### Sample
+```
+ request:
+{
+    "groupId":"59e891ae8143f22f13d66242"
+}
+response:
+{
+    "success": true,
+    "data": {
+        "lv": 1,
+        "minutes": 36
+    }
+}
+  ```     
+    
