@@ -1615,6 +1615,61 @@ response:
         }
     }
   ```   
+
+
+## 获取宠物状态 
+> 
+#### HttpMethod: `POST`
+#### Url: `/pet/lstGoods`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data    |Array     | Array
+item.thumb   |string    | 缩略图
+item.type     |Number   | 物品类型 (1)"寵物", (2)"飼料盒", (3)"小窩",(4)"玩具",(5)"坐墊",(6)"花束",(7)"飾品",(8)"服飾",(9)"窗簾",(10)"牆壁", (11)"地板", (12)"神奇藥水"
+item.typeName |string    | 物品类型名称 
+item.score    |string    | 购买所需health icon. 
+
+
+#### Sample
+```
+ request:
+   {
+   }
+response:
+    {
+        "success": true,
+      "data": [
+             {
+                 "_id": "59f1d100d368989c13fcb5cf",
+                 "title": "動動狗",
+                 "score": 150,
+                 "type": 1,
+                 "thumb": "http://101.201.234.233/v1/pet/downloadphoto?filename=e74bf82a-a19d-402d-944e-ecd77ccfceba",
+                 "typeName": "寵物"
+             },
+             {
+                 "_id": "59f1d100d368989c13fcb5d0",
+                 "title": "健健貓",
+                 "score": 150,
+                 "type": 1,
+                 "thumb": "http://101.201.234.233/v1/pet/downloadphoto?filename=10db6b07-7134-45d3-bcb8-f676e7223d9b",
+                 "typeName": "寵物"
+             }
+           ]
+             
+    }
+  ```   
+  
+
   
 ***
 # 健康币
