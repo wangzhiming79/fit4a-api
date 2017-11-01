@@ -1633,10 +1633,12 @@ param|type|description
 -|-|-
 success|bool|是否成功
 data    |Array     | Array
+item._id     |string    | 商品购买id， buyPetGoods 请求需要
 item.thumb   |string    | 缩略图
 item.type     |Number   | 物品类型 (1)"寵物", (2)"飼料盒", (3)"小窩",(4)"玩具",(5)"坐墊",(6)"花束",(7)"飾品",(8)"服飾",(9)"窗簾",(10)"牆壁", (11)"地板", (12)"神奇藥水"
 item.typeName |string    | 物品类型名称 
 item.score    |string    | 购买所需health icon. 
+item.goodsNo  |String    | 物品ID ，与MyGoods API 返回的 goodsNo一致，用于判断此商品是否可继续购买。
 
 
 #### Sample
@@ -1648,22 +1650,72 @@ response:
     {
         "success": true,
       "data": [
-             {
-                 "_id": "59f1d100d368989c13fcb5cf",
-                 "title": "動動狗",
-                 "score": 150,
-                 "type": 1,
-                 "thumb": "http://101.201.234.233/v1/pet/downloadphoto?filename=e74bf82a-a19d-402d-944e-ecd77ccfceba",
-                 "typeName": "寵物"
-             },
-             {
-                 "_id": "59f1d100d368989c13fcb5d0",
-                 "title": "健健貓",
-                 "score": 150,
-                 "type": 1,
-                 "thumb": "http://101.201.234.233/v1/pet/downloadphoto?filename=10db6b07-7134-45d3-bcb8-f676e7223d9b",
-                 "typeName": "寵物"
-             }
+                  {
+                       "_id": "59f1d100d368989c13fcb5cf",
+                       "title": "動動狗",
+                       "score": 150,
+                       "type": 1,
+                       "thumb": "http://101.201.234.233/v1/pet/downloadphoto?filename=e74bf82a-a19d-402d-944e-ecd77ccfceba",
+                       "goodsNo": "000000000000000000000000",
+                       "typeName": "寵物"
+                   },
+                   {
+                       "_id": "59f1d100d368989c13fcb5d0",
+                       "title": "健健貓",
+                       "score": 150,
+                       "type": 1,
+                       "thumb": "http://101.201.234.233/v1/pet/downloadphoto?filename=10db6b07-7134-45d3-bcb8-f676e7223d9b",
+                       "goodsNo": "000000000000000000000001",
+                       "typeName": "寵物"
+                   },
+           ]
+             
+    }
+  ```   
+  
+
+## 宠物现有商品 
+> 
+#### HttpMethod: `POST`
+#### Url: `/pet/myGoods`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data    |Array     | Array
+item.type     |Number   | 物品类型 (1)"寵物", (2)"飼料盒", (3)"小窩",(4)"玩具",(5)"坐墊",(6)"花束",(7)"飾品",(8)"服飾",(9)"窗簾",(10)"牆壁", (11)"地板", (12)"神奇藥水"
+item.title    |string    | 物品名称
+item.goodsNo  |String    | 物品ID ，lstGoods API 返回的 goodsNo一致，用于判断此商品是否可继续购买。
+
+
+#### Sample
+```
+ request:
+   {
+   }
+response:
+    {
+        "success": true,
+      "data": [
+                    {
+                        "_id": "59f97c50ddea9b1b06aa6dce",
+                        "goodsNo": "000000000000000000000003",
+                        "type": 2,
+                        "title": "塑膠飼料盒(含普通飼料)"
+                    },
+                    {
+                        "_id": "59f97c50ddea9b1b06aa6dce",
+                        "goodsNo": "000000000000000000000008",
+                        "type": 3,
+                        "title": "豪華小窩"
+                    },
            ]
              
     }
@@ -1930,6 +1982,41 @@ response:
      }
  }
   ```   
+
+
+ 
+## 购买宠物物品
+> 
+#### HttpMethod: `POST`
+#### Url: `/healthCoin/buyPetGoods`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+_id         |string     |false      | 商品id
+
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功，如果餘額不足，錯誤碼1033，
+balance   |number    | 成功返回賬號餘額
+
+#### Sample
+```
+ request:
+ {
+     "_id":"59f1d100d368989c13fcb5de"
+ }
+response:
+{
+    "success": true,
+    "balance": 174
+}
+  ```   
+
   
   
 ***
