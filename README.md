@@ -2446,9 +2446,10 @@ response:
                      "avatar": "http://101.201.234.233/v1/fitGroup/downloadphoto?filename=dfdd370c-912b-458a-a145-0e2ea8a96067",
                      "title": "吃水果大賽",
                      "member": {
-                         "userNo": "59ddbbf33f398a155c9c5310",
-                         "state": 3,
-                         "_id": "59e87732cbcab406114677c9"
+                          "userNo": "59ddbbf33f398a155c9c5310",
+                           "state": 3,
+                           "name": "billwang",
+                           "photo": "default.png"
                      },
                      "owner": true
           }
@@ -2660,10 +2661,10 @@ response:
  }
   ```        
 
-## 获取群组运动第一名
+## 获取运动群组排名
 > 
 #### HttpMethod: `POST`
-#### Url: `/fitGroup/getBestSporter`
+#### Url: `/fitGroup/getTodaySportRank`
 #### Header: 
 Headers       |type       |nullable   |description
 ------------|-----------|-----------|-----------
@@ -2676,8 +2677,8 @@ param       |type       |nullable   |description
 param|type|description
 -|-|-
 success|bool|是否成功
-data    |Object     | 
- 
+data    |Array     | 返回本群的运动排名数组，如果数组为空，表示没有数据，
+item.isSelf|boolean | 为true表示用户自己，没有为true的item表示用户无数据。 
 #### Sample
 ```
  request:
@@ -2687,19 +2688,29 @@ data    |Object     |
 response:
 {
     "success": true,
-    "data": {
-        "userNo": "59ddbbf33f398a155c9c5310",
-        "name": "billwang",
-        "photo": "default.png",
-        "minutes": 60
-    }
+    "data": [
+                {
+                    "sportsTime": 60,
+                    "userNo": "59ddbbf33f398a155c9c5310",
+                    "name": "billwang",
+                    "photo": "default.png",
+                    "isSelf": false
+                },
+                {
+                    "sportsTime": 30,
+                    "userNo": "5982ec27587743070562bf8e",
+                    "name": "billwang",
+                    "photo": "5982ec27587743070562bf8e.png",
+                    "isSelf": true
+                }
+            ]
 }
   ```   
 
-## 获取群组步数第一名
+## 获取运动步行排名
 > 
 #### HttpMethod: `POST`
-#### Url: `/fitGroup/getBestWalker`
+#### Url: `/fitGroup/getTodayWalkRank`
 #### Header: 
 Headers       |type       |nullable   |description
 ------------|-----------|-----------|-----------
@@ -2712,8 +2723,8 @@ param       |type       |nullable   |description
 param|type|description
 -|-|-
 success|bool|是否成功
-data    |Object     | 
- 
+data    |Array     | 返回本群排名数组，如果数组为空，表示没有数据，
+item.isSelf|boolean | 为true表示用户自己，没有为true的item表示用户无数据。 
 #### Sample
 ```
  request:
@@ -2723,80 +2734,16 @@ data    |Object     |
 response:
 {
     "success": true,
-    "data": {
-        "userNo": "59ddbbf33f398a155c9c5310",
-        "name": "billwang",
-        "photo": "default.png",
-        "steps": 9999
-    }
+    "data": [
+               {
+                      "steps": 11400,
+                      "userNo": "5982ec27587743070562bf8e",
+                      "name": "billwang",
+                      "photo": "5982ec27587743070562bf8e.png",
+                      "isSelf": true
+                  }
+            ]
 }
-  ```     
-  
-## 获取我的步数排名
-> 
-#### HttpMethod: `POST`
-#### Url: `/fitGroup/getMyWalkRank`
-#### Header: 
-Headers       |type       |nullable   |description
-------------|-----------|-----------|-----------
-Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
-#### Request: 
-param       |type       |nullable   |description
-------------|-----------|-----------|-----------
-  groupId   | string    | false     | 群id
-#### Response:
-param|type|description
--|-|-
-success|bool|是否成功
-data    |Object     | 
- 
-#### Sample
-```
- request:
-{
-    "groupId":"59e891ae8143f22f13d66242"
-}
-response:
-{
-    "success": true,
-    "data": {
-        "lv": 1,
-        "steps": 5678
-    }
-}
-  ```     
+  ```   
 
-## 获取我的运动排名
-> 
-#### HttpMethod: `POST`
-#### Url: `/fitGroup/getMySportRank`
-#### Header: 
-Headers       |type       |nullable   |description
-------------|-----------|-----------|-----------
-Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
-#### Request: 
-param       |type       |nullable   |description
-------------|-----------|-----------|-----------
-  groupId   | string    | false     | 群id
-#### Response:
-param|type|description
--|-|-
-success|bool|是否成功
-data    |Object     | 
- 
-#### Sample
-```
- request:
-{
-    "groupId":"59e891ae8143f22f13d66242"
-}
-response:
-{
-    "success": true,
-    "data": {
-        "lv": 1,
-        "minutes": 36
-    }
-}
-  ```     
     
