@@ -2313,6 +2313,53 @@ response:
   ```   
 
 
+## 更新群組  
+> 
+#### HttpMethod: `POST`
+#### Url: `/fitGroup/update`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+groupId     |string     |false      | 群id
+title       |String     |true       |名稱
+type        |Number     |true       |類型 (1)萬步走 (2)運動 30 分 (3) 五蔬果 (4)八杯水
+visible     |boolean    |true       |開放true 私有false
+description |String     |true       |介紹
+avatar      |String     |true       |圖標Url ，請先call upload  上傳圖像后獲取文件url 填入，可不填
+  
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data    |object    | 目标
+
+#### Sample
+```
+ request:
+ {
+    "groupId":"59e47165a2ee860a0a9c49a7",
+    "title":"水果大比拼",
+    "type":2,
+    "description":"水果有营养",
+    "visible":true,
+    "avatar":"http://101.201.234.233/v1/fitGroup/downloadphoto?filename=dfdd370c-912b-458a-a145-0e2ea8a96067"
+ }
+response:
+ {
+     "success": true,
+     "data": {
+         "n": 1,
+         "nModified": 1,
+         "ok": 1
+     }
+ }
+  ```   
+
+
 ## 上傳群組圖標  
 > 
 #### HttpMethod: `POST`
@@ -2447,9 +2494,9 @@ response:
                      "title": "吃水果大賽",
                      "member": {
                           "userNo": "59ddbbf33f398a155c9c5310",
-                           "state": 3,
-                           "name": "billwang",
-                           "photo": "default.png"
+                               "state": 3,
+                               "name": "billwang",
+                               "photo": "default.png"
                      },
                      "owner": true
           }
