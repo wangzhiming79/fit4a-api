@@ -2569,7 +2569,7 @@ data    |Object     |
 ```
  request:
 {
-    "groupId":"59e891ae8143f22f13d66242"
+    "groupId":"59e47165a2ee860a0a9c49a7"
 }
 response:
 {
@@ -2579,11 +2579,18 @@ response:
         "title": "跑步軍團-093-310",
         "avatar": "http://localhost:4001/v1/group/downloadphoto?filename=dfdd370c-912b-458a-a145-0e2ea8a96067",
         "members": [
-            {
-                "userNo": "59ddbbf33f398a155c9c5310",
-                "name": "billwang",
-                "photo": "default.png"
-            }
+                      {
+                          "userNo": "59ddbbf33f398a155c9c5310",
+                          "name": "billwang",
+                          "photo": "default.png",
+                          "isSelf": false
+                      },
+                      {
+                          "userNo": "5982ec27587743070562bf8e",
+                          "name": "billwang",
+                          "photo": "5982ec27587743070562bf8e.png",
+                          "isSelf": true
+                      }
         ],
         "owner": false
     }
