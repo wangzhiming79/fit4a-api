@@ -2518,6 +2518,7 @@ param       |type       |nullable   |description
   types     |Array      |true       |不傳默認顯示所有群組，類型 (1)萬步走 (2)運動 30 分 (3) 五蔬果 (4)八杯水
   name      |String     |true       |群名
   groupId   |String     |true       |群組ID
+  keyword   |String     |true       |可为群名或者群组ID
 #### Response:
 param|type|description
 -|-|-
