@@ -2578,6 +2578,7 @@ response:
     "data": {
         "_id": "59e891ae8143f22f13d66242",
         "title": "跑步軍團-093-310",
+        "displayId": 10001,
         "avatar": "http://localhost:4001/v1/group/downloadphoto?filename=dfdd370c-912b-458a-a145-0e2ea8a96067",
         "members": [
                       {
