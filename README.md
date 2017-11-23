@@ -88,6 +88,7 @@ name             |string  |false      |第三方账号名称
 accesstoken      |string  |false      |第三方账号存取权杖
 email            |string  |true      |第三方账号注册mail
 icon             |string  |true      |第三方账号头像url
+device           |string  |true      |device 
 #### Response:
 param|type|description
 -|-|-
