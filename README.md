@@ -1694,7 +1694,7 @@ data    |Array     | Array
 item.type     |Number   | 物品类型 (1)"寵物", (2)"飼料盒", (3)"小窩",(4)"玩具",(5)"坐墊",(6)"花束",(7)"飾品",(8)"服飾",(9)"窗簾",(10)"牆壁", (11)"地板", (12)"神奇藥水"
 item.title    |string    | 物品名称
 item.goodsNo  |String    | 物品ID ，lstGoods API 返回的 goodsNo一致，用于判断此商品是否可继续购买。
-
+item.validDays | Number  | 有效天数
 
 #### Sample
 ```
@@ -1705,23 +1705,105 @@ response:
     {
         "success": true,
       "data": [
-                    {
-                        "_id": "59f97c50ddea9b1b06aa6dce",
-                        "goodsNo": "000000000000000000000003",
-                        "type": 2,
-                        "title": "塑膠飼料盒(含普通飼料)"
-                    },
-                    {
-                        "_id": "59f97c50ddea9b1b06aa6dce",
-                        "goodsNo": "000000000000000000000008",
-                        "type": 3,
-                        "title": "豪華小窩"
-                    },
+                 {
+                     "_id": "5a1e4df5f55916075474d8ee",
+                     "goodsNo": "000000000000000000000013",
+                     "type": 5,
+                     "title": "絨布柔軟加厚坐墊"
+                 },
+                 {
+                     "_id": "5a1e4df5f55916075474d8ee",
+                     "goodsNo": "000000000000000000000017",
+                     "type": 6,
+                     "title": "豪華花束 (10 天)",
+                     "validDays": 10
+                 },
+                 {
+                     "_id": "5a1e4df5f55916075474d8ee",
+                     "goodsNo": "000000000000000000000035",
+                     "type": 12,
+                     "title": "背景飄雪 (3 天)",
+                     "validDays": 3
+                 }
            ]
              
     }
   ```   
   
+## 宠物商品购买日期
+> 
+#### HttpMethod: `POST`
+#### Url: `/pet/lastPurchaseTime`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+goodsNo     | String    | false     | 物品id 
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data    |Object     | 
+itemId  |string    | 物品名称
+title   |String    | 
+timeStamp| String  | 购买时间 UTC
+
+
+#### Sample
+```
+ request:
+   {
+      "goodsNo":"000000000000000000000032"
+   }
+response:
+   {
+       "success": true,
+       "data": {
+           "itemId": "000000000000000000000032",
+           "title": "原木地板",
+           "timeStamp": "2017-11-29T06:07:49.490Z"
+       }
+   }
+  ```   
+  
+## 移除宠物商品
+> 
+#### HttpMethod: `POST`
+#### Url: `/pet/removeGoods`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+goodsNo     | String    | false     | 物品id 
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data    |Object     | 
+
+#### Sample
+```
+ request:
+   {
+      "goodsNo":"000000000000000000000032"
+   }
+response:
+ {
+     "success": true,
+     "data": {
+         "n": 1,
+         "nModified": 1,
+         "ok": 1
+     }
+ }
+  ```   
+    
 
   
 ***
