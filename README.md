@@ -428,7 +428,6 @@ Authorization      |string        |false      | 账号授权token, 格式 "Beare
 #### Request: 
 param       |type       |nullable   |description
 ------------|-----------|-----------|-----------
-name        |string     |false      | 查找字串
 #### Response:
 param|type|description
 -|-|-
@@ -1407,6 +1406,43 @@ response:
         ]
     }
   ``` 
+
+
+## 查看我的今日饮食总排名 
+> 
+#### HttpMethod: `POST`
+#### Url: `/food/getTodayRank`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+  type      | string    | false     | 食物类别 蔬（1） 果（2） 蛋白（3） 水（4） 
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data                     |object     | 目标数组
+item.lv                  |number     | 0 表示未达标 1 达标 
+item.total               |number     | 今日人数
+
+#### Sample
+```
+ request:
+   {
+        "type" : 3
+   }
+response:
+   {
+       "success": true,
+       "data": {
+             "lv": 1,
+             "total": 2
+       }
+   }
+  ``` 
   
 ***
 # 运动
@@ -1548,7 +1584,6 @@ Authorization      |string        |false      | 账号授权token, 格式 "Beare
 #### Request: 
 param       |type       |nullable   |description
 ------------|-----------|-----------|-----------
-name        |string     |false      | 查找字串
 #### Response:
 param|type|description
 -|-|-
@@ -2364,7 +2399,7 @@ Authorization      |string        |false      | 账号授权token, 格式 "Beare
 param       |type       |nullable   |description
 ------------|-----------|-----------|-----------
 title       |String     |false      |名稱
-type        |Number     |false      |類型 (1)萬步走 (2)運動 30 分 (3) 五蔬果 (4)八杯水
+type        |Number     |false      |類型 (1)萬步走 (2)運動 30 分 (3) 三蔬  (4) 二果 （5）五蛋白  (6)八杯水 
 visible     |boolean    |false      | 開放true 私有false
 description |String     |true       |介紹
 avatar      |String     |true       |圖標Url ，請先call upload  上傳圖像后獲取文件url 填入，可不填
@@ -2409,7 +2444,7 @@ param       |type       |nullable   |description
 ------------|-----------|-----------|-----------
 groupId     |string     |false      | 群id
 title       |String     |true       |名稱
-type        |Number     |true       |類型 (1)萬步走 (2)運動 30 分 (3) 五蔬果 (4)八杯水
+type        |Number     |true       |類型 (1)萬步走 (2)運動 30 分 (3) 三蔬  (4) 二果 （5）五蛋白  (6)八杯水 
 visible     |boolean    |true       |開放true 私有false
 description |String     |true       |介紹
 avatar      |String     |true       |圖標Url ，請先call upload  上傳圖像后獲取文件url 填入，可不填
@@ -2846,7 +2881,7 @@ response:
 }
   ```   
 
-## 获取运动步行排名
+## 获取步行排名
 > 
 #### HttpMethod: `POST`
 #### Url: `/fitGroup/getTodayWalkRank`
@@ -2885,4 +2920,54 @@ response:
 }
   ```   
 
-    
+## 获取饮食排名
+> 
+#### HttpMethod: `POST`
+#### Url: `/fitGroup/getTodayFoodRank`
+#### Header: 
+Headers       |type       |nullable   |description
+------------|-----------|-----------|-----------
+Authorization      |string        |false      | 账号授权token, 格式 "Bearer " + token 字串
+#### Request: 
+param       |type       |nullable   |description
+------------|-----------|-----------|-----------
+  groupId   | string    | false     | 群id
+  type      | string    | false     | 食物类别 蔬（1） 果（2） 蛋白（3） 水（4） 
+#### Response:
+param|type|description
+-|-|-
+success|bool|是否成功
+data    |Array          | 返回本群排名数组，如果数组为空，表示没有数据，
+item.isSelf|boolean     | 为true表示用户自己，没有为true的item表示用户无数据。 
+item.finished|boolean   | 是否达标 
+item.value|boolean      | 食物份数 
+#### Sample
+```
+ request:
+{
+    "groupId":"59e891ae8143f22f13d66242",
+    "type" : 1
+}
+response:
+{
+    "success": true,
+    "data": [
+                {
+                      "value": 2,
+                      "userNo": "5982ec27587743070562bf8e",
+                      "name": "billwang092",
+                      "photo": "5982ec27587743070562bf8e.png",
+                      "finished": true,
+                      "isSelf": true
+                  },
+                  {
+                      "value": 1,
+                      "userNo": "59ddbbf33f398a155c9c5310",
+                      "name": "billwang093",
+                      "photo": "59ddbbf33f398a155c9c5310.png",
+                      "finished": false,
+                      "isSelf": false
+                  }
+            ]
+}
+  ```       
